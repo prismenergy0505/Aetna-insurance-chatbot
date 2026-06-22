@@ -1,3 +1,338 @@
-body {
-  font-family: Arial, sans-serif;
+/* ============================================
+   PRISM Aetna Benefits Assistant
+   Calm, trustworthy, internal-tool aesthetic.
+   ============================================ */
+
+:root {
+  --ink: #15211e;
+  --ink-soft: #4a5a56;
+  --paper: #f4f2ec;
+  --paper-raised: #fdfcf8;
+  --line: #d9d4c6;
+  --teal: #1f4d44;
+  --teal-deep: #133631;
+  --teal-soft: #e4ece9;
+  --amber: #c47f3a;
+  --amber-soft: #f3e3d0;
+  --radius: 14px;
+  --font-display: "Iowan Old Style", "Palatino Linotype", Georgia, serif;
+  --font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans KR", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Topbar ---------- */
+
+.topbar {
+  background: var(--teal-deep);
+  color: var(--paper-raised);
+  border-bottom: 1px solid rgba(0,0,0,0.15);
+}
+
+.topbar-inner {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 16px 20px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.brand-mark {
+  font-family: var(--font-display);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  font-size: 1.05rem;
+}
+
+.brand-divider {
+  margin: 0 8px;
+  opacity: 0.45;
+}
+
+.brand-sub {
+  font-size: 0.95rem;
+  opacity: 0.85;
+}
+
+.brand-tag {
+  font-size: 0.75rem;
+  opacity: 0.6;
+  letter-spacing: 0.02em;
+}
+
+/* ---------- Shell ---------- */
+
+.chat-shell {
+  flex: 1;
+  max-width: 760px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 28px 20px 24px;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- Intro ---------- */
+
+.intro {
+  padding: 8px 4px 28px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 20px;
+}
+
+.eyebrow {
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+  font-weight: 600;
+  margin: 0 0 10px;
+}
+
+.intro h1 {
+  font-family: var(--font-display);
+  font-size: 2rem;
+  line-height: 1.2;
+  margin: 0 0 14px;
+  color: var(--teal-deep);
+  font-weight: 600;
+}
+
+.intro-copy {
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+  line-height: 1.6;
+  max-width: 540px;
+  margin: 0 0 20px;
+}
+
+.suggestion-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.suggestion-chip {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  color: var(--teal-deep);
+  font-size: 0.82rem;
+  padding: 8px 14px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: border-color 0.15s ease, transform 0.1s ease;
+}
+
+.suggestion-chip:hover {
+  border-color: var(--teal);
+  transform: translateY(-1px);
+}
+
+/* ---------- Thread ---------- */
+
+.thread {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  min-height: 120px;
+}
+
+.msg {
+  display: flex;
+  gap: 12px;
+  max-width: 100%;
+  animation: rise 0.25s ease;
+}
+
+@keyframes rise {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.msg-user {
+  justify-content: flex-end;
+}
+
+.bubble {
+  padding: 12px 16px;
+  border-radius: var(--radius);
+  font-size: 0.95rem;
+  line-height: 1.55;
+  white-space: pre-wrap;
+}
+
+.msg-user .bubble {
+  background: var(--teal);
+  color: var(--paper-raised);
+  border-bottom-right-radius: 4px;
+  max-width: 78%;
+}
+
+.msg-bot .bubble {
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  color: var(--ink);
+  border-bottom-left-radius: 4px;
+  max-width: 86%;
+}
+
+.msg-bot .avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background: var(--teal-soft);
+  color: var(--teal-deep);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.7rem;
+  font-weight: 700;
+  flex-shrink: 0;
+  font-family: var(--font-display);
+}
+
+.bubble.error {
+  background: #fbeae6;
+  border: 1px solid #e3b6a8;
+  color: #8a3c28;
+}
+
+.bubble.typing {
+  display: flex;
+  gap: 4px;
+  align-items: center;
+  padding: 14px 16px;
+}
+
+.typing-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ink-soft);
+  opacity: 0.5;
+  animation: bounce 1.1s infinite ease-in-out;
+}
+.typing-dot:nth-child(2) { animation-delay: 0.15s; }
+.typing-dot:nth-child(3) { animation-delay: 0.3s; }
+
+@keyframes bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40% { transform: translateY(-4px); opacity: 0.9; }
+}
+
+/* ---------- Composer ---------- */
+
+.composer {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  background: var(--paper-raised);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 10px 10px 10px 16px;
+  margin-top: 18px;
+  position: sticky;
+  bottom: 16px;
+  box-shadow: 0 8px 24px -12px rgba(19, 54, 49, 0.25);
+}
+
+.composer-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  resize: none;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: var(--ink);
+  max-height: 120px;
+  padding: 6px 0;
+}
+
+.composer-input::placeholder {
+  color: #9a9583;
+}
+
+.composer-send {
+  flex-shrink: 0;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: var(--teal);
+  color: var(--paper-raised);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.15s ease, transform 0.1s ease;
+}
+
+.composer-send:hover {
+  background: var(--teal-deep);
+}
+
+.composer-send:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.composer-send:active {
+  transform: scale(0.94);
+}
+
+/* ---------- Disclaimer ---------- */
+
+.disclaimer {
+  text-align: center;
+  font-size: 0.72rem;
+  color: var(--ink-soft);
+  opacity: 0.75;
+  margin: 14px 4px 0;
+  line-height: 1.5;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 540px) {
+  .intro h1 { font-size: 1.6rem; }
+  .msg-user .bubble, .msg-bot .bubble { max-width: 92%; }
+  .composer { bottom: 10px; }
+}
+
+/* ---------- Reduced motion ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+  .msg { animation: none; }
+  .typing-dot { animation: none; opacity: 0.6; }
+}
+
+/* ---------- Focus visibility ---------- */
+
+.suggestion-chip:focus-visible,
+.composer-send:focus-visible,
+.composer-input:focus-visible {
+  outline: 2px solid var(--amber);
+  outline-offset: 2px;
 }

@@ -30,121 +30,150 @@ const providerSearch = document.getElementById('providerSearch');
 const cityFilter = document.getElementById('cityFilter');
 const specialtyFilter = document.getElementById('specialtyFilter');
 const providerList = document.getElementById('providerList');
-const loadMoreBtn = document.getElementById('loadMoreBtn');
-const resultCount = document.getElementById('resultCount');
+const providerCount = document.getElementById('providerCount');
 
-let currentCountry = 'sg';
+// 국가 코드 → 데이터 파일 경로
+const COUNTRY_FILES = {
+  UK: 'providers/uk.json',
+  SG: 'providers/sg.json',
+  KR: 'providers/kr.json',
+  US: 'providers/us.json',
+};
+
+let currentCountry = 'UK';
 let currentCountryData = [];
-let filteredData = [];
-let displayCount = 100;
 
-const countryFiles = {
-  uk: 'providers/uk.json',
-  sg: 'providers/sg.json',
-  kr: 'providers/kr.json'
-};
-
-const countryNames = {
-  uk: '🇬🇧 영국',
-  sg: '🇸🇬 싱가포르',
-  kr: '🇰🇷 한국'
-};
-
-countryTabs.addEventListener('click', (e) => {
-  const btn = e.target.closest('.country-tab');
-  if (!btn) return;
-  const country = btn.dataset.country;
-  if (country === currentCountry) return;
-
-  document.querySelectorAll('.country-tab').forEach(b => b.classList.remove('active'));
-  btn.classList.add('active');
-
-  currentCountry = country;
-  currentCountryData = [];
-  displayCount = 100;
-  providerSearch.value = '';
-  loadCountry(country);
+countryTabs.querySelectorAll('.country-tab').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    countryTabs.querySelectorAll('.country-tab').forEach((b) => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentCountry = btn.getAttribute('data-country');
+    currentCountryData = [];
+    loadCountry(currentCountry);
+  });
 });
 
-async function loadCountry(country) {
-  providerList.innerHTML = '<p class="loading-msg">불러오는 중...</p>';
+async function loadCountry(countryCode) {
+  providerCount.textContent = '불러오는 중…';
+  providerList.innerHTML = '';
+  cityFilter.innerHTML = '<option value="">전체 도시</option>';
+  specialtyFilter.innerHTML = '<option value="">전체 전문분야</option>';
+
+  const path = COUNTRY_FILES[countryCode];
+
   try {
-    const res = await fetch(countryFiles[country]);
-    if (!res.ok) throw new Error('파일을 찾을 수 없습니다');
+    const res = await fetch(path);
+    if (!res.ok) throw new Error('not found');
     const data = await res.json();
     currentCountryData = data;
     populateFilters(data);
-    applyFilters();
+    renderProviders(data);
   } catch (err) {
-    providerList.innerHTML = `<p class="loading-msg">${countryNames[country]} 데이터를 아직 준비 중입니다. 인사팀(경영지원팀)에 문의해주세요.</p>`;
-    resultCount.textContent = '';
+    providerCount.textContent = '';
+    providerList.innerHTML = `
+      <div class="provider-empty">
+        <p><strong>${countryCode}</strong> 데이터가 아직 준비되지 않았어요.</p>
+        <p class="provider-empty-sub">관리자가 <code>providers/${countryCode.toLowerCase()}.json</code> 파일을 추가하면 여기에 표시됩니다.</p>
+      </div>`;
   }
 }
 
 function populateFilters(data) {
-  const cities = [...new Set(data.map(p => p.city).filter(Boolean))].sort();
+  const cities = [...new Set(data.map((p) => p.city).filter(Boolean))].sort();
   const specialties = [...new Set(
-    data.flatMap(p => (p.specialty || '').split('|').map(s => s.trim()).filter(Boolean))
+    data.flatMap((p) => (p.specialty ? p.specialty.split('|') : [])).filter(Boolean)
   )].sort();
 
-  cityFilter.innerHTML = '<option value="">모든 도시</option>' +
-    cities.map(c => `<option value="${c}">${c}</option>`).join('');
+  cities.forEach((city) => {
+    const opt = document.createElement('option');
+    opt.value = city;
+    opt.textContent = city;
+    cityFilter.appendChild(opt);
+  });
 
-  specialtyFilter.innerHTML = '<option value="">모든 전문분야</option>' +
-    specialties.map(s => `<option value="${s}">${s}</option>`).join('');
+  specialties.forEach((sp) => {
+    const opt = document.createElement('option');
+    opt.value = sp;
+    opt.textContent = formatSpecialty(sp);
+    specialtyFilter.appendChild(opt);
+  });
 }
 
-function applyFilters() {
-  const q = providerSearch.value.trim().toLowerCase();
+function renderProviders(data) {
+  const query = providerSearch.value.trim().toLowerCase();
   const city = cityFilter.value;
   const specialty = specialtyFilter.value;
 
-  filteredData = currentCountryData.filter(p => {
-    if (q && !(p.name || '').toLowerCase().includes(q)) return false;
-    if (city && p.city !== city) return false;
-    if (specialty && !(p.specialty || '').includes(specialty)) return false;
-    return true;
+  const filtered = data.filter((p) => {
+    const matchesQuery =
+      !query ||
+      (p.name && p.name.toLowerCase().includes(query)) ||
+      (p.city && p.city.toLowerCase().includes(query)) ||
+      (p.specialty && p.specialty.toLowerCase().includes(query));
+    const matchesCity = !city || p.city === city;
+    const matchesSpecialty = !specialty || (p.specialty && p.specialty.split('|').includes(specialty));
+    return matchesQuery && matchesCity && matchesSpecialty;
   });
 
-  displayCount = 100;
-  renderList();
-}
+  providerCount.textContent = `${filtered.length.toLocaleString()}개 결과`;
 
-function renderList() {
-  const toShow = filteredData.slice(0, displayCount);
-  resultCount.textContent = `총 ${filteredData.length}개 중 ${toShow.length}개 표시`;
-
-  if (toShow.length === 0) {
-    providerList.innerHTML = '<p class="loading-msg">검색 결과가 없습니다.</p>';
-    loadMoreBtn.style.display = 'none';
+  if (filtered.length === 0) {
+    providerList.innerHTML = '<div class="provider-empty"><p>검색 결과가 없습니다.</p></div>';
     return;
   }
 
-  providerList.innerHTML = toShow.map(p => `
-    <div class="provider-card">
-      <h3>${escapeHtml(p.name || '')}</h3>
-      ${p.type ? `<span class="provider-type">${escapeHtml(p.type)}</span>` : ''}
-      ${p.address ? `<p class="provider-address">📍 ${escapeHtml(p.address)}${p.city ? ', ' + escapeHtml(p.city) : ''}</p>` : ''}
-      ${p.specialty ? `<p class="provider-specialty">🩺 ${escapeHtml(p.specialty.split('|').join(', '))}</p>` : ''}
-      ${p.contact ? `<p class="provider-contact">📞 ${escapeHtml(p.contact)}</p>` : ''}
-      ${p.website ? `<p class="provider-website">🔗 <a href="${escapeHtml(p.website)}" target="_blank" rel="noopener">웹사이트</a></p>` : ''}
-    </div>
-  `).join('');
+  // 너무 많으면 일부만 먼저 보여주고 "더 보기"로 확장 (렌더 성능 보호)
+  const PAGE_SIZE = 100;
+  const toShow = filtered.slice(0, PAGE_SIZE);
 
-  loadMoreBtn.style.display = displayCount < filteredData.length ? 'block' : 'none';
+  providerList.innerHTML = toShow.map(renderCard).join('');
+
+  if (filtered.length > PAGE_SIZE) {
+    const moreBtn = document.createElement('button');
+    moreBtn.className = 'provider-more-btn';
+    moreBtn.textContent = `${(filtered.length - PAGE_SIZE).toLocaleString()}개 더 보기`;
+    moreBtn.addEventListener('click', () => {
+      providerList.innerHTML += filtered.slice(PAGE_SIZE).map(renderCard).join('');
+    });
+    providerList.appendChild(moreBtn);
+  }
+}
+
+function renderCard(p) {
+  const specialtyTags = p.specialty
+    ? p.specialty.split('|').map((s) => `<span class="tag">${escapeHtml(formatSpecialty(s))}</span>`).join('')
+    : '';
+
+  return `
+    <div class="provider-card">
+      <div class="provider-card-head">
+        <h3>${escapeHtml(p.name || '')}</h3>
+        <span class="provider-type">${escapeHtml(p.type || '')}</span>
+      </div>
+      <p class="provider-address">${escapeHtml(p.address || '')}${p.city ? ', ' + escapeHtml(p.city) : ''}</p>
+      <div class="provider-meta">
+        ${p.contact ? `<a href="tel:${escapeAttr(p.contact)}" class="meta-link">📞 ${escapeHtml(p.contact)}</a>` : ''}
+        ${p.website ? `<a href="${escapeAttr(p.website)}" target="_blank" rel="noopener" class="meta-link">🌐 웹사이트</a>` : ''}
+      </div>
+      ${specialtyTags ? `<div class="provider-tags">${specialtyTags}</div>` : ''}
+    </div>`;
+}
+
+function formatSpecialty(s) {
+  return s === 'General Practice' ? 'GP (General Practice)' : s;
 }
 
 function escapeHtml(str) {
-  const div = document.createElement('div');
-  div.textContent = str;
-  return div.innerHTML;
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }
 
-providerSearch.addEventListener('input', applyFilters);
-cityFilter.addEventListener('change', applyFilters);
-specialtyFilter.addEventListener('change', applyFilters);
+function escapeAttr(str) {
+  return String(str).replace(/"/g, '&quot;');
+}
 
-loadMoreBtn.addEventListener('click', () => {
-  displayCount += 100;
-  renderList();
-});
+providerSearch.addEventListener('input', () => renderProviders(currentCountryData));
+cityFilter.addEventListener('change', () => renderProviders(currentCountryData));
+specialtyFilter.addEventListener('change', () => renderProviders(currentCountryData));

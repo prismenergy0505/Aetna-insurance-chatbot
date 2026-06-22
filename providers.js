@@ -34,13 +34,11 @@ const providerCount = document.getElementById('providerCount');
 
 // 국가 코드 → 데이터 파일 경로
 const COUNTRY_FILES = {
-  UK: 'providers/uk.json',
   SG: 'providers/sg.json',
   KR: 'providers/kr.json',
-  US: 'providers/us.json',
 };
 
-let currentCountry = 'UK';
+let currentCountry = 'SG';
 let currentCountryData = [];
 
 countryTabs.querySelectorAll('.country-tab').forEach((btn) => {
@@ -122,7 +120,6 @@ function renderProviders(data) {
     return;
   }
 
-  // 너무 많으면 일부만 먼저 보여주고 "더 보기"로 확장 (렌더 성능 보호)
   const PAGE_SIZE = 100;
   const toShow = filtered.slice(0, PAGE_SIZE);
 

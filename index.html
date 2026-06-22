@@ -21,7 +21,15 @@
     </div>
   </header>
 
-  <main class="chat-shell">
+  <nav class="tabbar">
+    <div class="tabbar-inner">
+      <button class="tab-btn active" id="tabChatBtn" data-tab="chat">💬 보험 챗봇</button>
+      <button class="tab-btn" id="tabProvidersBtn" data-tab="providers">🏥 병원 찾기</button>
+    </div>
+  </nav>
+
+  <main class="chat-shell" id="chatView">
+
 
     <section class="intro" id="intro">
       <p class="eyebrow">01 — Ask anything about your plan</p>
@@ -61,8 +69,43 @@
     </p>
 
   </main>
+
+  <main class="providers-shell" id="providersView" style="display:none;">
+
+    <section class="providers-intro">
+      <p class="eyebrow">02 — Find an in-network provider</p>
+      <h1>Search hospitals &amp; clinics<br/>near you.</h1>
+      <p class="intro-copy">
+        Browse Aetna in-network providers by country. Filter by city or specialty to narrow your search.
+      </p>
+    </section>
+
+    <div class="country-tabs" id="countryTabs">
+      <button class="country-tab active" data-country="sg">🇸🇬 싱가포르</button>
+      <button class="country-tab" data-country="kr">🇰🇷 한국</button>
+    </div>
+
+    <div class="provider-filters">
+      <input type="text" id="providerSearch" class="provider-search-input" placeholder="병원명으로 검색…" />
+      <select id="cityFilter" class="provider-filter-select">
+        <option value="">모든 도시</option>
+      </select>
+      <select id="specialtyFilter" class="provider-filter-select">
+        <option value="">모든 전문분야</option>
+      </select>
+    </div>
+
+    <p class="provider-count" id="resultCount"></p>
+
+    <div class="provider-list" id="providerList"></div>
+
+    <button class="load-more-btn" id="loadMoreBtn" style="display:none;">더 보기</button>
+
+  </main>
+
 </div>
 
 <script src="chat.js"></script>
+<script src="providers.js"></script>
 </body>
 </html>

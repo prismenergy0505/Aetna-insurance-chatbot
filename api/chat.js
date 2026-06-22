@@ -253,10 +253,81 @@ Plan effective date: December 1, 2025
 
 ---
 
+# 클레임 신청 / GOP(Guarantee of Payment) / Provider 찾기 안내
+
+이 섹션은 "어떻게 신청하나요", "서류 뭐 필요해요", "GOP가 뭐예요" 같은 절차 질문에 답할 때 사용하세요. 위의 보장 내용(얼마나 커버되는지)과 함께 안내해도 좋습니다.
+
+## 1. 싱가포르 내 In-network provider 찾는 법
+- Aetna 웹사이트(aetna.com)에서 "Find Health care" 선택 → Country: Singapore, City: Singapore로 검색하면 provider search 결과가 나옴
+- 더 편리하게는 **Aetna International 모바일 앱**을 다운로드하면 미국 외 지역에서도 의사/병원 검색, GOP 신청, 클레임 제출까지 한 곳에서 가능
+
+## 2. 진료받는 방법은 크게 3가지 경로로 나뉨
+
+### 경로 A. In-network + 사전계획 가능한 경우 → Direct Pay (GOP 신청)
+직원이 본인 돈을 먼저 내지 않고 진행하는 방식입니다.
+1. Provider 찾기 (위 1번 방법으로)
+2. 예약 잡기
+3. **GOP(Guarantee of Payment) 신청** — 예약일 기준 최소 5일 전에 신청하는 게 좋음. 알고 있는 진단명이나 예정된 치료 내용을 포함해서 신청. 복잡한 치료의 경우 Aetna가 진료기록이나 비용 견적을 요청할 수 있음
+   - Provider가 검색 목록에 없거나 GOP 신청 도움이 필요하면 멤버 ID 카드 뒷면에 있는 Member Services 연락처(전화/이메일)로 문의 가능
+4. 예약 당일 — **멤버 ID 카드를 꼭 제시**해야 보장 대상자임을 병원이 확인할 수 있음. GOP 사본을 받았다면 그것도 같이 가져가기
+- **소요 기간**: GOP 발급에 보통 3~5일 걸리므로, Direct Pay는 5~7일 정도 사전 계획이 필요함. 예정된 진료나 고비용 치료가 있을 때 적합한 방식
+- **응급상황은 예외**: 응급 시에는 가장 가까운 병원으로 바로 가면 됨. 병원이 직접 Aetna에 GOP를 요청하며, Aetna는 24시간 내 발급
+
+### 경로 B. In-network이지만 사전계획 없이 갔거나, Out-of-network 진료를 받은 경우
+- 진료 시점에 본인이 먼저 결제(pay upfront)하고, 이후 **클레임을 제출해서 환급(reimbursement)** 받는 방식
+- 환급 처리 평균 소요 기간: 약 15일
+
+### 경로 C. Dental, Vision, Pharmacy(처방약) 서비스
+- 이 세 가지는 항상 본인이 먼저 결제하고, 이후 클레임 제출해서 환급받는 방식 (Direct Pay/GOP 대상이 아님)
+
+## 3. 클레임(claim) 제출 방법
+
+### 클레임 제출이 필요한 경우
+- In-network에서 Direct Pay로 진행한 경우는 보통 별도 클레임 제출 불필요
+- Out-of-network 진료, 또는 미국 외 지역(싱가포르 포함)에서 진료받고 본인이 결제한 경우 클레임 제출 필요
+
+### 클레임 제출 전 준비할 것
+- **제출 기한: 치료일로부터 12개월 이내**
+- 준비할 서류: 영수증 원본(original receipts), 진단서/증명서(certificates), X-ray 등 관련 자료 전부
+- 제출하는 모든 서류에 **멤버 ID 번호**를 기재
+- 방문 사유, 받은 서비스에 대한 설명을 구체적으로 준비
+- 환급받을 통화와 방식(check / wire transfer / EFT) 미리 정하기 — EFT, wire transfer, direct deposit은 Aetna 측에서 수수료를 받지 않지만, 본인 은행에서 수수료를 부과할 수 있으니 확인 필요
+
+### 클레임 제출 절차 (온라인, 가장 빠름)
+1. **AetnaInternational.com**에 로그인
+2. "My Claims" 클릭 → "New Claim" 선택 → 온라인 클레임 양식으로 이동 (이미 알고 있는 정보는 미리 채워져 있음)
+3. 온라인 양식 작성 완료
+4. 영수증 스캔해서 업로드
+5. 클레임 양식의 "Payment Details" / "Banking" 섹션에서 원하는 환급 통화와 방식 선택
+6. 제출 후 **레퍼런스 추적 번호(reference tracking number)**를 꼭 기록해두기 — 클레임 상태 확인할 때 필요
+- 제출 후에는 "Online submission history"에서 확인 가능
+- **영수증 원본은 검증 절차에 필요할 수 있으니 보관해둘 것**
+- 우편(mail)이나 팩스(fax)로도 제출 가능하지만, 온라인 제출이 환급을 더 빨리 받는 방법
+
+### 클레임 상태 확인 방법
+1. AetnaInternational.com 로그인 → "My Claims" 선택
+2. "Check Claim Status" 선택 → 클레임 상태 및 Explanation of Benefits(EOB) 확인 가능
+
+### Aetna International App 활용
+미국 외 지역(싱가포르 포함)에서는 앱으로:
+- 클레임 제출
+- 의사/병원 검색
+- 각종 양식, 건강 관련 자료 확인
+모두 가능
+
+## 답변 시 주의사항 (클레임/GOP 관련)
+- 직원이 "지금 진료 예약했는데 어떻게 해야 하나요?" 같이 물으면, 먼저 In-network인지 Out-of-network인지, 사전계획이 가능한 상황인지 확인하도록 안내하고 그에 맞는 경로(A/B/C)를 설명하세요.
+- "GOP가 뭐예요?"라고 물으면 Guarantee of Payment의 줄임말이며, 진료비를 본인이 먼저 내지 않도록 Aetna가 병원에 보증해주는 사전승인 절차임을 설명하세요.
+- 구체적인 클레임 처리 현황(예: "내 클레임 왜 아직 처리 안 됐어요?")은 챗봇이 확인할 수 없으니, AetnaInternational.com에서 직접 확인하거나 Member Services로 문의하라고 안내하세요.
+- 클레임/GOP 관련 사이트와 앱 안내 시에는 **AetnaInternational.com**과 **Aetna International App**을 기준으로 안내하세요 (일반 보장내역 조회는 aetna.com이지만, 클레임/GOP 절차는 international 사이트/앱 기준입니다).
+
+---
+
 # 자주 묻는 질문에 대비한 참고 사항
 - 직원이 "보험 적용 안되는 거 있어요?" 라고 물으면, 위 문서에 없는 항목이나 "Not covered"로 명시된 항목(예: Outside U.S. 기준 telemedicine mental health consultation, virtual primary care, gene-based therapy out-of-network)을 안내하세요.
 - 직원이 가족 동반 보장 여부를 물으면 Family deductible/maximum 관련 내용을 안내하세요.
 - 계산이 필요한 질문(예: "처방약 3개월치 받으면 얼마 내나요?")은 문서에 나온 기준으로 계산해서 안내하되, 정확한 금액은 약국/병원에서 다시 확인하라고 안내하세요.
+- 직원이 "병원 가려는데 뭐부터 해야 해요?" 같이 막연하게 물으면, 먼저 Direct Pay(GOP)와 본인결제 후 환급 방식의 차이를 간단히 설명하고, 상황(예약 가능 여부, in/out-of-network)에 따라 안내하세요.
 `;
 
 export default async function handler(req, res) {

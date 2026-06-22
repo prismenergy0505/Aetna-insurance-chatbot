@@ -1,0 +1,212 @@
+[
+  {
+    "name": "Chung-Ang University Hospital",
+    "address": "102 Heukseok-ro",
+    "city": "Seoul",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "82.2.6299.1156",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "Gachon University Gil Medical Center",
+    "address": "21 Namdong-daero 774 beon-gil",
+    "city": "Incheon",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "82.32.460.3213",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "Good Morning Hospital",
+    "address": "Habjungdong 883",
+    "city": "Pyeongtaek",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "82.316597736",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "Hanaro Medical Foundation",
+    "address": "5F Gran Seoul Tower, 33 Jong-ro",
+    "city": "Seoul",
+    "type": "Clinic",
+    "specialty": "",
+    "contact": "82.2.590.1111",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "Hanshin Medipia",
+    "address": "94, Jamwon-ro, 2, 3 Floor",
+    "city": "Seoul",
+    "type": "Clinic",
+    "specialty": "",
+    "contact": "82.10.9226.2289",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "Kang Dong Hospital",
+    "address": "145 Sha-gu, Dadae-ro",
+    "city": "Busan",
+    "type": "Hospital-Private",
+    "specialty": "",
+    "contact": "82.51.2091201",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "Korea Psychological Group",
+    "address": "2nd Floor 364-5 Anjeong-ri,Gyeonggi",
+    "city": "Pyeongtaek",
+    "type": "Mental Health",
+    "specialty": "",
+    "contact": "82.10.6809.2234",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "Korea University Anam Hospital",
+    "address": "73 Goryeodae-ro",
+    "city": "Seoul",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "82.2.920.5677",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "Kwangdong Hospital",
+    "address": "612 Bongeunsa-ro, Gangnam-gu",
+    "city": "Seoul",
+    "type": "Hospital-Private",
+    "specialty": "",
+    "contact": "82.2.2222.4883",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "LUGA Medical Foundations NAEUN Hospital (and its affiliate JIAN Health Promotion Center)",
+    "address": "23 Wonjeok-ro, Seo-gu",
+    "city": "Incheon",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "82.1661.0099/82.32.585.7995/82.10.2314",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "Samsung Medical Center",
+    "address": "81 Irwon-ro, Irwon-dong",
+    "city": "Seoul",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "82.234100200 / 82.234100226",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "Sky Blue Dental Clinic",
+    "address": "110-3 Anjeongsunhwan-ro,Gyeonggi",
+    "city": "Pyeongtaek",
+    "type": "Dental",
+    "specialty": "",
+    "contact": "82.10.5631.2717",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "The Catholic University of Korea Seoul St. Mary's Hospital",
+    "address": "222 Banpo-Dong Seocho-Gu",
+    "city": "Seoul",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "82.2.1588.1511",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "Wooridul Spine Hospital Gangnam",
+    "address": "445, Hakdong-ro",
+    "city": "Seoul",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "82.2.513.8456",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "Yonsei Severance Hospital",
+    "address": "50 Yonsei-ro, Seodaemun-gu",
+    "city": "Seoul",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "82.2.2228.5800 / 82.2.2228.5814",
+    "website": "",
+    "status": "Contracted"
+  },
+  {
+    "name": "549th Hospital Center",
+    "address": "Unit 15245,AP",
+    "city": "APO",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "866. 633.4726",
+    "website": "",
+    "status": "One-Time"
+  },
+  {
+    "name": "Ajou University Hospital",
+    "address": "164 Worldcup-ro",
+    "city": "Suwon-si",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "82.31.219.5546",
+    "website": "",
+    "status": "One-Time"
+  },
+  {
+    "name": "Chonnam National University Bitgoeul Hospital",
+    "address": "80 Deognam-gil",
+    "city": "Gwang-Ju",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "82.62.670.9617",
+    "website": "",
+    "status": "One-Time"
+  },
+  {
+    "name": "Konyang University Hospital",
+    "address": "158 Gwanjeodong-ro",
+    "city": "Daejeon",
+    "type": "Hospital",
+    "specialty": "",
+    "contact": "82.42.1577.3330/82.42.600.6654",
+    "website": "",
+    "status": "One-Time"
+  },
+  {
+    "name": "Seoul National University Dental Hospital",
+    "address": "101 Daehak-ro",
+    "city": "Seoul",
+    "type": "Dental",
+    "specialty": "",
+    "contact": "82.2.2072.0759",
+    "website": "",
+    "status": "One-Time"
+  },
+  {
+    "name": "Yondental Orthodontics Clinic",
+    "address": "4F, 62-3 1 Ga Taepyungro",
+    "city": "Seoul",
+    "type": "Clinic",
+    "specialty": "",
+    "contact": "82.2733.8272",
+    "website": "",
+    "status": "One-Time"
+  }
+]

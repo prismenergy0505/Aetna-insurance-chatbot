@@ -54,8 +54,8 @@ html, body {
 /* ---------- Topbar ---------- */
 
 .topbar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--violet-line);
+  background: var(--violet-deep);
+  background: linear-gradient(135deg, var(--violet-deep) 0%, #5d3a85 100%);
 }
 
 .topbar-inner {
@@ -74,25 +74,25 @@ html, body {
   font-weight: 600;
   letter-spacing: -0.01em;
   font-size: 1.18rem;
-  color: var(--violet-deep);
+  color: #ffffff;
 }
 
 .brand-divider {
   margin: 0 10px;
-  opacity: 0.35;
-  color: var(--ink-faint);
+  opacity: 0.4;
+  color: #ffffff;
 }
 
 .brand-sub {
   font-size: 0.92rem;
-  color: var(--ink-soft);
+  color: rgba(255, 255, 255, 0.88);
   font-weight: 500;
   letter-spacing: 0.01em;
 }
 
 .brand-tag {
   font-size: 0.7rem;
-  color: var(--ink-faint);
+  color: rgba(255, 255, 255, 0.65);
   letter-spacing: 0.04em;
   text-transform: uppercase;
   font-weight: 600;

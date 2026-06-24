@@ -346,6 +346,45 @@ Plan effective date: December 1, 2025
 - 직원이 가족 동반 보장 여부를 물으면 Family deductible/maximum 관련 내용을 안내하세요.
 - 계산이 필요한 질문(예: "처방약 3개월치 받으면 얼마 내나요?")은 문서에 나온 기준으로 계산해서 안내하되, 정확한 금액은 약국/병원에서 다시 확인하라고 안내하세요.
 - 직원이 "병원 가려는데 뭐부터 해야 해요?" 같이 막연하게 물으면, 먼저 Direct Pay(GOP)와 본인결제 후 환급 방식의 차이를 간단히 설명하고, 상황(예약 가능 여부, in/out-of-network)에 따라 안내하세요.
+
+---
+
+# 보장 내용과 무관한 일반 절차 / 웹사이트·앱 사용법 FAQ
+이 섹션은 PRISM 플랜의 보장 범위(얼마나 커버되는지)와는 무관하게, Aetna International의 웹사이트/앱 사용법과 클레임 행정 절차에 대한 일반적인 안내입니다. 보장 한도나 금액에 대한 질문이 아니라 "어떻게 하나요" 류의 절차 질문에 답할 때 사용하세요.
+
+## 영수증 여러 개를 한 번에 제출하고 싶어요
+온라인 클레임 양식 작성 시, 같은 제출 건에 여러 진료 내역(treatment summary)을 포함할 수 있습니다. 같은 병원에서 발생한 여러 날짜의 진료를 한 번에 제출할 때 유용합니다. 단, 병원이 다른 경우에는 빠른 처리를 위해 병원별로 따로 양식을 제출하는 것이 좋습니다. 이미 제출한 클레임을 복사해서 재사용하는 기능도 있어 반복 입력을 줄일 수 있습니다.
+
+## 환급받을 계좌를 여러 개 등록할 수 있나요?
+네, 가능합니다. AetnaInternational.com에 로그인 후 "Reimbursements" 메뉴에서 "Add new method"를 선택해 새 계좌를 추가하면 됩니다. 클레임 제출 시 원하는 계좌를 선택해서 환급받을 수 있습니다.
+
+## 매번 같은 계좌로 환급받고 싶은데, 매번 입력하기 번거로워요
+"Recurring Reimbursement Election" 기능을 설정하면 환급 계좌를 매번 입력할 필요 없이 자동으로 같은 계좌로 받을 수 있습니다. AetnaInternational.com 또는 앱에서 "My Claims" → "Get reimbursed" → "More about the claims process"에서 설정할 수 있습니다.
+
+## 다른 화폐로 환급을 요청했는데 USD로 받았어요
+다음과 같은 경우에 발생할 수 있습니다.
+- 요청한 화폐를 Aetna에서 지원하지 않는 경우 (10일간 회신 요청 후 무응답 시 USD로 자동 처리)
+- 요청한 wire transfer가 지원되지 않는 화폐였거나 거부된 경우
+- 요청 내용이 불분명했거나 은행 정보가 누락된 경우
+은행 송금 수수료는 Aetna 측에서 부과하지 않지만, 본인 은행에서 수수료를 부과할 수 있으니 확인이 필요합니다.
+
+## AetnaInternational.com에 어떻게 가입하나요?
+1. AetnaInternational.com에서 "Log In / Register" 클릭 후 안내에 따라 진행
+2. Plan Type에서 본인에게 맞는 멤버 유형 선택
+3. 이름, 생년월일, 멤버 ID 카드에 있는 멤버 ID 번호 입력
+가입을 완료하면 aetna.com에도 자동으로 함께 등록됩니다.
+
+## AetnaInternational.com에서는 뭘 할 수 있나요?
+- 클레임 제출 및 진행 상태 추적
+- 클레임 환급 전자 수령 신청
+- 미국 외 지역 provider 검색
+- 건강/웰니스 프로그램 확인
+
+## aetna.com은 또 뭔가요? AetnaInternational.com과 뭐가 달라요?
+aetna.com에서는 멤버 ID 카드 확인, Explanation of Benefits(EOB) 확인, 플랜 문서 열람이 가능합니다. 클레임 제출이나 해외 provider 검색은 AetnaInternational.com이나 모바일 앱을 이용하시는 게 더 적합합니다.
+
+## 다니는 병원/의사가 Aetna 네트워크에 없는데, 추가해달라고 요청할 수 있나요?
+네, 가능합니다. Member Services에 전화해서 해당 provider를 네트워크에 추천(nominate)할 수 있습니다. Aetna가 해당 provider에 연락해서 네트워크 합류를 협의하지만, 반드시 성사된다고 보장되지는 않습니다.
 `;
 
 export default async function handler(req, res) {

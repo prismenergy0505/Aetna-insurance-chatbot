@@ -49,9 +49,16 @@ function addMessage(text, role) {
 
   const bubble = document.createElement('div');
   bubble.className = 'bubble';
-  bubble.textContent = text;
-  row.appendChild(bubble);
 
+  if (role === 'bot' && typeof marked !== 'undefined') {
+    // 봇 응답: 마크다운(표, 굵게, 목록 등)을 실제 HTML로 변환해서 렌더링
+    bubble.innerHTML = marked.parse(text);
+  } else {
+    // 사용자 입력은 보안을 위해 항상 순수 텍스트로 표시
+    bubble.textContent = text;
+  }
+
+  row.appendChild(bubble);
   thread.appendChild(row);
   thread.scrollTop = thread.scrollHeight;
   return bubble;
@@ -86,12 +93,10 @@ async function sendMessage() {
   if (!question) return;
 
   intro.style.display = 'none';
-
   addMessage(question, 'user');
   input.value = '';
   input.style.height = 'auto';
   sendBtn.disabled = true;
-
   addTypingIndicator();
 
   try {

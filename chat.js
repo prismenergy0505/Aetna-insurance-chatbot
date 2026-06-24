@@ -1,6 +1,6 @@
 // chat.js (프론트엔드)
 // 사용자가 입력한 질문을 /api/chat (서버리스 함수)로 보내고,
-// 응답을 화면에 표시합니다. API 키는 여기에 절대 들어가지 않습니다.
+// 스트리밍 응답을 실시간으로 화면에 표시합니다. API 키는 여기에 절대 들어가지 않습니다.
 
 const thread = document.getElementById('thread');
 const composer = document.getElementById('composer');
@@ -51,14 +51,31 @@ function addMessage(text, role) {
   bubble.className = 'bubble';
 
   if (role === 'bot' && typeof marked !== 'undefined') {
-    // 봇 응답: 마크다운(표, 굵게, 목록 등)을 실제 HTML로 변환해서 렌더링
     bubble.innerHTML = marked.parse(text);
   } else {
-    // 사용자 입력은 보안을 위해 항상 순수 텍스트로 표시
     bubble.textContent = text;
   }
 
   row.appendChild(bubble);
+  thread.appendChild(row);
+  thread.scrollTop = thread.scrollHeight;
+  return bubble;
+}
+
+// 스트리밍용: 빈 봇 말풍선을 미리 만들어서 반환 (텍스트는 나중에 채워짐)
+function addStreamingBubble() {
+  const row = document.createElement('div');
+  row.className = 'msg msg-bot';
+
+  const avatar = document.createElement('div');
+  avatar.className = 'avatar';
+  avatar.textContent = 'A';
+  row.appendChild(avatar);
+
+  const bubble = document.createElement('div');
+  bubble.className = 'bubble';
+  row.appendChild(bubble);
+
   thread.appendChild(row);
   thread.scrollTop = thread.scrollHeight;
   return bubble;
@@ -99,6 +116,9 @@ async function sendMessage() {
   sendBtn.disabled = true;
   addTypingIndicator();
 
+  let bubble = null;
+  let fullText = '';
+
   try {
     const res = await fetch('/api/chat', {
       method: 'POST',
@@ -106,17 +126,77 @@ async function sendMessage() {
       body: JSON.stringify({ question }),
     });
 
-    const data = await res.json();
-    removeTypingIndicator();
+    if (!res.ok || !res.body) {
+      removeTypingIndicator();
+      let errMsg = '오류가 발생했습니다. 다시 시도해주세요.';
+      try {
+        const errData = await res.json();
+        errMsg = errData.error || errMsg;
+      } catch (_) {}
+      addMessage(errMsg, 'bot').classList.add('error');
+      return;
+    }
 
-    if (!res.ok) {
-      addMessage(data.error || '오류가 발생했습니다. 다시 시도해주세요.', 'bot').classList.add('error');
-    } else {
-      addMessage(data.reply, 'bot');
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+    let buffer = '';
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+
+      buffer += decoder.decode(value, { stream: true });
+      const lines = buffer.split('\n');
+      buffer = lines.pop() || '';
+
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const dataStr = line.slice(6).trim();
+        if (!dataStr) continue;
+
+        let event;
+        try {
+          event = JSON.parse(dataStr);
+        } catch (_) {
+          continue;
+        }
+
+        if (event.type === 'text') {
+          if (!bubble) {
+            removeTypingIndicator();
+            bubble = addStreamingBubble();
+          }
+          fullText += event.text;
+          // 스트리밍 중에는 마크다운 변환 전 원문을 그대로 표시 (실시간 타이핑 느낌)
+          bubble.textContent = fullText;
+          thread.scrollTop = thread.scrollHeight;
+        } else if (event.type === 'error') {
+          removeTypingIndicator();
+          if (!bubble) {
+            addMessage(event.error || '오류가 발생했습니다.', 'bot').classList.add('error');
+          }
+        } else if (event.type === 'done') {
+          // 스트리밍 완료 후, 누적된 전체 텍스트를 마크다운(표 등)으로 최종 렌더링
+          if (bubble && typeof marked !== 'undefined') {
+            bubble.innerHTML = marked.parse(fullText);
+          }
+        }
+      }
+    }
+
+    // 응답이 비어있는 경우 (스트림이 끝났는데 텍스트가 하나도 없었던 경우)
+    if (!bubble) {
+      removeTypingIndicator();
+      addMessage('응답을 생성하지 못했습니다. 다시 시도해주세요.', 'bot').classList.add('error');
+    } else if (typeof marked !== 'undefined') {
+      // done 이벤트를 못 받았어도 스트림이 끝났으면 마크다운으로 마무리 렌더링
+      bubble.innerHTML = marked.parse(fullText);
     }
   } catch (err) {
     removeTypingIndicator();
-    addMessage('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 'bot').classList.add('error');
+    if (!bubble) {
+      addMessage('네트워크 오류가 발생했습니다. 잠시 후 다시 시도해주세요.', 'bot').classList.add('error');
+    }
   } finally {
     sendBtn.disabled = false;
     input.focus();

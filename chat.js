@@ -105,6 +105,15 @@ function removeTypingIndicator() {
   if (row) row.remove();
 }
 
+// 스트리밍 중 텍스트가 들어올 때마다 호출 — 누적된 전체 텍스트를 마크다운으로 즉시 렌더링
+function renderStreamingText(bubble, fullText) {
+  if (typeof marked !== 'undefined') {
+    bubble.innerHTML = marked.parse(fullText);
+  } else {
+    bubble.textContent = fullText;
+  }
+}
+
 async function sendMessage() {
   const question = input.value.trim();
   if (!question) return;
@@ -167,8 +176,7 @@ async function sendMessage() {
             bubble = addStreamingBubble();
           }
           fullText += event.text;
-          // 스트리밍 중에는 마크다운 변환 전 원문을 그대로 표시 (실시간 타이핑 느낌)
-          bubble.textContent = fullText;
+          renderStreamingText(bubble, fullText);
           thread.scrollTop = thread.scrollHeight;
         } else if (event.type === 'error') {
           removeTypingIndicator();
@@ -176,21 +184,18 @@ async function sendMessage() {
             addMessage(event.error || '오류가 발생했습니다.', 'bot').classList.add('error');
           }
         } else if (event.type === 'done') {
-          // 스트리밍 완료 후, 누적된 전체 텍스트를 마크다운(표 등)으로 최종 렌더링
-          if (bubble && typeof marked !== 'undefined') {
-            bubble.innerHTML = marked.parse(fullText);
+          if (bubble) {
+            renderStreamingText(bubble, fullText);
           }
         }
       }
     }
 
-    // 응답이 비어있는 경우 (스트림이 끝났는데 텍스트가 하나도 없었던 경우)
     if (!bubble) {
       removeTypingIndicator();
       addMessage('응답을 생성하지 못했습니다. 다시 시도해주세요.', 'bot').classList.add('error');
-    } else if (typeof marked !== 'undefined') {
-      // done 이벤트를 못 받았어도 스트림이 끝났으면 마크다운으로 마무리 렌더링
-      bubble.innerHTML = marked.parse(fullText);
+    } else {
+      renderStreamingText(bubble, fullText);
     }
   } catch (err) {
     removeTypingIndicator();

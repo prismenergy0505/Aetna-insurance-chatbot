@@ -52,10 +52,10 @@ countryTabs.querySelectorAll('.country-tab').forEach((btn) => {
 });
 
 async function loadCountry(countryCode) {
-  providerCount.textContent = '불러오는 중…';
+  providerCount.textContent = '불러오는 중… · Loading…';
   providerList.innerHTML = '';
-  cityFilter.innerHTML = '<option value="">전체 도시</option>';
-  specialtyFilter.innerHTML = '<option value="">전체 전문분야</option>';
+  cityFilter.innerHTML = '<option value="">전체 도시 · All Cities</option>';
+  specialtyFilter.innerHTML = '<option value="">전체 전문분야 · All Specialties</option>';
 
   const path = COUNTRY_FILES[countryCode];
 
@@ -70,7 +70,7 @@ async function loadCountry(countryCode) {
     providerCount.textContent = '';
     providerList.innerHTML = `
       <div class="provider-empty">
-        <p><strong>${countryCode}</strong> 데이터가 아직 준비되지 않았어요.</p>
+        <p><strong>${countryCode}</strong> 데이터가 아직 준비되지 않았어요. · Data not available yet for <strong>${countryCode}</strong>.</p>
         <p class="provider-empty-sub">관리자가 <code>providers/${countryCode.toLowerCase()}.json</code> 파일을 추가하면 여기에 표시됩니다.</p>
       </div>`;
   }
@@ -113,10 +113,10 @@ function renderProviders(data) {
     return matchesQuery && matchesCity && matchesSpecialty;
   });
 
-  providerCount.textContent = `${filtered.length.toLocaleString()}개 결과`;
+  providerCount.textContent = `${filtered.length.toLocaleString()}개 결과 · ${filtered.length.toLocaleString()} results`;
 
   if (filtered.length === 0) {
-    providerList.innerHTML = '<div class="provider-empty"><p>검색 결과가 없습니다.</p></div>';
+    providerList.innerHTML = '<div class="provider-empty"><p>검색 결과가 없습니다 · No results found.</p></div>';
     return;
   }
 
@@ -128,7 +128,7 @@ function renderProviders(data) {
   if (filtered.length > PAGE_SIZE) {
     const moreBtn = document.createElement('button');
     moreBtn.className = 'provider-more-btn';
-    moreBtn.textContent = `${(filtered.length - PAGE_SIZE).toLocaleString()}개 더 보기`;
+    moreBtn.textContent = `${(filtered.length - PAGE_SIZE).toLocaleString()}개 더 보기 · Show more`;
     moreBtn.addEventListener('click', () => {
       providerList.innerHTML += filtered.slice(PAGE_SIZE).map(renderCard).join('');
     });
@@ -136,10 +136,21 @@ function renderProviders(data) {
   }
 }
 
+// 이름+주소+도시로 구글맵 검색 링크 생성 (좌표가 없어도 구글맵이 알아서 찾아줌)
+function buildMapUrl(p) {
+  const parts = [p.name, p.address, p.city].filter(Boolean).join(', ');
+  return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(parts)}`;
+}
+
 function renderCard(p) {
   const specialtyTags = p.specialty
     ? p.specialty.split('|').map((s) => `<span class="tag">${escapeHtml(formatSpecialty(s))}</span>`).join('')
     : '';
+
+  // website가 있으면 웹사이트로, 없으면 구글맵 검색으로 연결
+  const mapOrSiteLink = p.website
+    ? `<a href="${escapeAttr(p.website)}" target="_blank" rel="noopener" class="meta-link">🌐 웹사이트 · Website</a>`
+    : `<a href="${escapeAttr(buildMapUrl(p))}" target="_blank" rel="noopener" class="meta-link">📍 지도에서 보기 · View on map</a>`;
 
   return `
     <div class="provider-card">
@@ -150,7 +161,7 @@ function renderCard(p) {
       <p class="provider-address">${escapeHtml(p.address || '')}${p.city ? ', ' + escapeHtml(p.city) : ''}</p>
       <div class="provider-meta">
         ${p.contact ? `<a href="tel:${escapeAttr(p.contact)}" class="meta-link">📞 ${escapeHtml(p.contact)}</a>` : ''}
-        ${p.website ? `<a href="${escapeAttr(p.website)}" target="_blank" rel="noopener" class="meta-link">🌐 웹사이트</a>` : ''}
+        ${mapOrSiteLink}
       </div>
       ${specialtyTags ? `<div class="provider-tags">${specialtyTags}</div>` : ''}
     </div>`;
